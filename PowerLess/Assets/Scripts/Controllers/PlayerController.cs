@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour {
 
             // If trying to move...            
             if (direction != Vector3.zero) {
-
+                
                 ACTION moveReaction = levelController.MoveTo(transform.position + direction, this);
                 if(moveReaction != ACTION.NOPE) {
                     StartCoroutine(Roll(transform.position, direction));

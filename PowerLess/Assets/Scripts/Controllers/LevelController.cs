@@ -5,10 +5,11 @@ using UnityEngine;
 public class LevelController : MonoBehaviour {
 
     private LevelGrid levelGrid;
+    public GameObject floor;
 
 	// Use this for initialization
-	void Start () {
-        levelGrid = new LevelGrid(gameObject, GetChildren());
+	void Start () {        
+        levelGrid = new LevelGrid(floor, GetChildren());
 	}
 
     /* Return a GameObject[] of all the child gameObjects
@@ -17,7 +18,7 @@ public class LevelController : MonoBehaviour {
         Transform[] childTransforms = GetComponentsInChildren<Transform>();
         List<GameObject> children = new List<GameObject>();
         for (int i = 0; i < childTransforms.Length; i++) {
-            if (childTransforms[i].gameObject != gameObject) {
+            if (childTransforms[i].gameObject.GetComponent<LevelObject>() != null) {
                 children.Add(childTransforms[i].gameObject);
             }            
         }

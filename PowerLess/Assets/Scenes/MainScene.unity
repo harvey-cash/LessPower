@@ -112,7 +112,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &833289009
+--- !u!1001 &303080614
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -121,15 +121,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -0.05
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
       propertyPath: m_LocalRotation.x
@@ -149,16 +149,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1312771389 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1296133519447094, guid: 476e469bad827f94f9598bf08e66fb15,
-    type: 2}
-  m_PrefabInternal: {fileID: 833289009}
 --- !u!1 &1322557913 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1047312460120254, guid: dc25c5e8e9249514ca657e80af1cca79,
@@ -229,6 +224,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1383101988 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1296133519447094, guid: 476e469bad827f94f9598bf08e66fb15,
+    type: 2}
+  m_PrefabInternal: {fileID: 303080614}
 --- !u!1 &1760630002
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsInScene:
   - {fileID: 1322557913}
-  - {fileID: 1312771389}
+  - {fileID: 1383101988}
   cameraObject: {fileID: 1760630007}
 --- !u!4 &1771915633
 Transform:
@@ -367,7 +367,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1797481952
 Prefab:
