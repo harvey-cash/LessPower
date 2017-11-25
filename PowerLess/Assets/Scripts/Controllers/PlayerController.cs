@@ -6,6 +6,15 @@ public class PlayerController : MonoBehaviour {
 
     private InputController inputController = new InputController();
 
+    private Rigidbody cameraObject;
+    public Rigidbody SetCamera {
+        set { cameraObject = value; }
+    }
+    private Vector3 cameraOffset;
+    public Vector3 SetOffset {
+        set { cameraOffset = value; }
+    }
+
     private LevelController levelController;
     public LevelController SetLevel {
         set { levelController = value; }
@@ -14,12 +23,12 @@ public class PlayerController : MonoBehaviour {
     private bool canMove = true;
     private float rollDuration = 0.3f;
 
-
     /*
      * Called every frame
      */
     private void Update() {        
         Move();
+        ControlCamera();
     }
 
     /*
@@ -29,12 +38,26 @@ public class PlayerController : MonoBehaviour {
         if (canMove) {
             Vector3 direction = inputController.GetInput();
 
-            // If trying to move, but not into an object on the grid...
-            if (direction != Vector3.zero && levelController.CanMoveTo(transform.position + direction)) {
-                StartCoroutine(Roll(transform.position, direction));
+            // If trying to move...            
+            if (direction != Vector3.zero) {
+
+                ACTION moveReaction = levelController.MoveTo(transform.position + direction, this);
+                if(moveReaction != ACTION.NOPE) {
+                    StartCoroutine(Roll(transform.position, direction));
+                }                
             }            
         }
     }
+
+    /* Add forces to the camera in order
+     * to move it around. Duh.
+     */
+    private void ControlCamera() {
+        if(cameraOffset != null) {
+            cameraObject.AddForce((transform.position - cameraOffset) - cameraObject.transform.position);
+        }        
+    }
+
 
     /*
      * Begin rolling, prevent any further movement until roll

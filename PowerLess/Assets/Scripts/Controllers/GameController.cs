@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public List<GameObject> objectsInScene;
+    public Rigidbody cameraObject;
 
 	// Use this for initialization
 	void Start () {
@@ -16,5 +17,7 @@ public class GameController : MonoBehaviour {
         LevelController level = (Instantiate(Resources.Load("Level1")) as GameObject).GetComponent<LevelController>();
 
         player.SetLevel = level;
+        player.SetCamera = cameraObject;
+        player.SetOffset = player.transform.position - cameraObject.transform.position;
     }
 }

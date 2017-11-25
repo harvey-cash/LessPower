@@ -26,12 +26,12 @@ public class LevelController : MonoBehaviour {
 
     /* Return true if given co-ords are free
      */
-    public bool CanMoveTo(int x, int z) {
-        return levelGrid.CanMoveTo(x, z);
+    public ACTION MoveTo(int x, int z, PlayerController player) {
+        return levelGrid.MoveTo(x, z, player);
     }
-    public bool CanMoveTo(Vector3 position) {
+    public ACTION MoveTo(Vector3 position, PlayerController player) {
         int x = (int)Mathf.Floor(position.x);
         int z = (int)Mathf.Floor(position.z);
-        return CanMoveTo(x, z);
+        return MoveTo(x, z, player);
     }
 }

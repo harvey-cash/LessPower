@@ -31,16 +31,23 @@ public class LevelGrid {
     }
 
 
-    /* Return true if given co-ords are free
+    /* Return ACTION.MOVE if space is free, otherwise consult the
+     * occupying object
      */
-    public bool CanMoveTo(int x, int z) {
+    public ACTION MoveTo(int x, int z, PlayerController player) {
         bool withinX = (x >= 0 && x < grid.GetLength(0));
         bool withinZ = (z >= 0 && z < grid.GetLength(1));
 
-        if (withinX && withinZ && grid[x, z] == null) {
-            return true;
+        if (withinX && withinZ) {
+            if (grid[x, z] == null) {
+                return ACTION.MOVE;
+            }
+            else {
+                return grid[x, z].GetComponent<LevelObject>().MoveReaction(player);
+            }
+            
         } else {
-            return false;
+            return ACTION.NOPE;
         }
     }
 
