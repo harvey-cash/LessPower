@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class LevelController : MonoBehaviour {
 
+    public Vector3 startPosition(int level) {
+        if (level == 1) {
+            return new Vector3(0.5f, 0.5f, 0.5f);
+        }
+        if (level == 2) {
+            return new Vector3(0.5f, 0.5f, 2.5f);
+        }
+        else {
+            return new Vector3(0.5f, 0.5f, 0.5f);
+        }
+    }
+
     private LevelGrid levelGrid;
     public GameObject floor;
 
@@ -51,7 +63,7 @@ public class LevelController : MonoBehaviour {
         // If the press results in defeating the level, progress to next
         ACTION pressed = levelGrid.Press(x, z, player);
         if (pressed == ACTION.WIN) {
-            gameController.WinLevel();
+            gameController.LoadLevel();
         }
 
         return pressed; 

@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: ac70f8d59486f1147983dcf30e2cbe85, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: b6784471f67192349b820a509e6171a6, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -112,48 +112,57 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &303080614
+--- !u!1001 &795170326
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4833650429839104, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+    - target: {fileID: 4989999699361986, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4545092811384996, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 5.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 476e469bad827f94f9598bf08e66fb15, type: 2}
+  m_ParentPrefab: {fileID: 100100000, guid: 10c3187b6b0a1434e98f3a07937acf20, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &795170327 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1556497660764670, guid: 10c3187b6b0a1434e98f3a07937acf20,
+    type: 2}
+  m_PrefabInternal: {fileID: 795170326}
 --- !u!1 &1322557913 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1047312460120254, guid: dc25c5e8e9249514ca657e80af1cca79,
@@ -224,11 +233,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1383101988 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1296133519447094, guid: 476e469bad827f94f9598bf08e66fb15,
-    type: 2}
-  m_PrefabInternal: {fileID: 303080614}
 --- !u!1 &1760630002
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +358,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectsInScene:
   - {fileID: 1322557913}
-  - {fileID: 1383101988}
+  - {fileID: 795170327}
   cameraObject: {fileID: 1760630007}
 --- !u!4 &1771915633
 Transform:
