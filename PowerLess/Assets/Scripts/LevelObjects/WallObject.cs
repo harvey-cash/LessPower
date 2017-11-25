@@ -5,16 +5,21 @@ using UnityEngine;
 public class WallObject : LevelObject {
     private float moveDuration = 0.5f;
 
+    private bool moving = false;
     private bool lowered = false;
     public void ToggleLowered() {
-        if (lowered) {
-            StartCoroutine(Move(Vector3.up));
-        } else {
-            StartCoroutine(Move(Vector3.down));
-        }
+        if (!moving) {
+            if (lowered) {
+                StartCoroutine(Move(Vector3.up));
+            } else {
+                StartCoroutine(Move(Vector3.down));
+            }
+        }        
     }
 
     private IEnumerator Move(Vector3 direction) {
+        moving = true;
+
         if (direction.normalized == Vector3.up) {
             lowered = false;
         }
@@ -33,6 +38,7 @@ public class WallObject : LevelObject {
         if (direction.normalized == Vector3.down) {
             lowered = true;
         }
+        moving = false;
     }
 
     public override ACTION PressedReaction(PlayerController player) {

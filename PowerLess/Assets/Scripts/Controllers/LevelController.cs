@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelController : MonoBehaviour {
-
-    public Vector3 startPosition(int level) {
-        if (level == 1) {
-            return new Vector3(0.5f, 0.5f, 0.5f);
-        }
-        if (level == 2) {
-            return new Vector3(0.5f, 0.5f, 2.5f);
-        }
-        else {
-            return new Vector3(0.5f, 0.5f, 0.5f);
-        }
+    
+    public Vector3 StartPosition() {
+        GameObject playerMarker = GetComponentsInChildren<PlayerController>()[0].gameObject;
+        Vector3 startPosition = playerMarker.transform.localPosition;
+        Destroy(playerMarker);
+        return startPosition;
     }
 
     private LevelGrid levelGrid;
@@ -26,7 +21,8 @@ public class LevelController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {        
-        levelGrid = new LevelGrid(floor, GetChildren());
+        levelGrid = new LevelGrid(floor, GetChildren());     
+        
 	}
 
     /* Return a GameObject[] of all the child gameObjects
