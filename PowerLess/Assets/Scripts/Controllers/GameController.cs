@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
-    private const int LEVEL_COUNT = 6;
-    private int currentLevel = 5;
+    private const int LEVEL_COUNT = 10;
+    private int currentLevel = 6;
 
     public List<GameObject> objectsInScene;
     public Rigidbody cameraObject;

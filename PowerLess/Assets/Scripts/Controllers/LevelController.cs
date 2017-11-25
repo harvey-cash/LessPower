@@ -45,6 +45,7 @@ public class LevelController : MonoBehaviour {
         List<GameObject> children = new List<GameObject>();
         for (int i = 0; i < childTransforms.Length; i++) {
             if (childTransforms[i].gameObject.GetComponent<LevelObject>() != null) {
+                childTransforms[i].GetComponent<LevelObject>().SetLevelController(this);
                 children.Add(childTransforms[i].gameObject);
             }            
         }
