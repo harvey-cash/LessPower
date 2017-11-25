@@ -2,70 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {   
-
-    private InputController inputController = new InputController();
-
-    private GameController gameController;
-    public GameController Game {
-        set { gameController = value; }
-    }
-
-    private Rigidbody cameraObject;
-    public Rigidbody CameraObject {
-        set { cameraObject = value; }
-    }
-    private Vector3 cameraOffset;
-    public Vector3 CameraOffset {
-        set { cameraOffset = value; }
-    }
-
-    private LevelController levelController;
-    public LevelController Level {
-        set { levelController = value; }
-    }
+public class Puppet : MonoBehaviour {
 
     private bool canMove = true;
     private float rollDuration = 0.3f;
 
-    /*
-     * Called every frame
-     */
-    private void Update() {        
-        Move();
-        ControlCamera();
+    private Vector3 startPosition;
+
+    private LevelController levelController;
+    public void SetLevel (LevelController level) {
+        levelController = level;
+    }
+
+    private void Start() {
+        startPosition = transform.position;
     }
 
     /*
      * For a given direction, roll the player.
      */
-    private void Move() {
+    public void Move(Vector3 direction) {
         if (canMove) {
-            Vector3 direction = inputController.GetInput();
 
             // If trying to move...            
             if (direction != Vector3.zero) {
                 Vector3 endPosition = transform.position + direction;
 
                 ACTION moveReaction = levelController.MoveTo(endPosition, this);
-                bool puppetCollision = levelController.PuppetCollision(endPosition);
+                bool collisions = levelController.PlayerCollision(endPosition) 
+                    && levelController.PuppetCollision(endPosition);
 
-                if (moveReaction != ACTION.NOPE && !puppetCollision) {
+                if (moveReaction != ACTION.NOPE && !collisions) {
                     StartCoroutine(Roll(transform.position, direction));
-                }                
-            }            
+                }
+            }
         }
     }
 
-    /* Add forces to the camera in order
-     * to move it around. Duh.
+    /* Players and Puppets can't affect each other... yet
      */
-    private void ControlCamera() {
-        if(cameraOffset != null) {
-            cameraObject.AddForce((transform.position - cameraOffset) - cameraObject.transform.position);
-        }        
+    public ACTION MoveReaction() {
+       return ACTION.NOPE;
     }
-
 
     /*
      * Begin rolling, prevent any further movement until roll
@@ -76,9 +54,9 @@ public class PlayerController : MonoBehaviour {
 
         float rollThrough = 90;
         Quaternion startRotation = transform.rotation;
-        
-        Vector3 rollPoint = 
-            (transform.position - (new Vector3(0, transform.localScale.y / 2, 0))) 
+
+        Vector3 rollPoint =
+            (transform.position - (new Vector3(0, transform.localScale.y / 2, 0)))
             + (direction / 2);
         Vector3 rollAxis = RollAxis(direction);
 
@@ -100,24 +78,24 @@ public class PlayerController : MonoBehaviour {
         transform.position = start + direction;
         canMove = true;
 
-        // Press upon landing
-        levelController.Press(transform.position, this);
+        // Press upon landing. If win, teleport back from whence you came.
+        ACTION pressResult = levelController.Press(transform.position, this);
+        if (pressResult == ACTION.WIN) {
+            transform.position = startPosition;
+        }
     }
 
     /*
      * For the given direction, return the correct roll axis.
-     */ 
-     private Vector3 RollAxis(Vector3 direction) {
+     */
+    private Vector3 RollAxis(Vector3 direction) {
         if (direction.normalized == Vector3.forward) {
             return Vector3.right;
-        }
-        else if (direction.normalized == Vector3.right) {
+        } else if (direction.normalized == Vector3.right) {
             return Vector3.back;
-        }
-        else if (direction.normalized == Vector3.back) {
+        } else if (direction.normalized == Vector3.back) {
             return Vector3.left;
-        }
-        else {
+        } else {
             return Vector3.forward;
         }
     }

@@ -52,4 +52,19 @@ public class WallObject : LevelObject {
             return ACTION.NOPE;
         }
     }
+
+
+    /* Puppets can interact with walls!
+     */
+    public override ACTION PressedReaction(Puppet puppet) {
+        return pressedReaction;
+    }
+
+    public override ACTION MoveReaction(Puppet puppet) {
+        if (lowered) {
+            return ACTION.MOVE;
+        } else {
+            return ACTION.NOPE;
+        }
+    }
 }

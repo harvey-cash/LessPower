@@ -8,6 +8,7 @@ using UnityEngine;
 public class LevelGrid {
     
     private GameObject[,] grid;
+    public GameObject[,] GetGrid() { return grid; }
 
     /* Construct a new LevelGrid, and populate with the objects in the level
      */
@@ -50,6 +51,23 @@ public class LevelGrid {
             return ACTION.NOPE;
         }
     }
+    /* Overloaded MoveTo for Puppets
+     */
+    public ACTION MoveTo(int x, int z, Puppet puppet) {
+        bool withinX = (x >= 0 && x < grid.GetLength(0));
+        bool withinZ = (z >= 0 && z < grid.GetLength(1));
+
+        if (withinX && withinZ) {
+            if (grid[x, z] == null) {
+                return ACTION.MOVE;
+            } else {
+                return grid[x, z].GetComponent<LevelObject>().MoveReaction(puppet);
+            }
+
+        } else {
+            return ACTION.NOPE;
+        }
+    }
 
 
     /* Return the press action of whatever's at these co-ordinates
@@ -59,6 +77,15 @@ public class LevelGrid {
             return ACTION.MOVE;
         } else {
             return grid[x, z].GetComponent<LevelObject>().PressedReaction(player);
+        }
+    }
+    /* Overloaded Press for Puppets
+     */
+    public ACTION Press(int x, int z, Puppet puppet) {
+        if (grid[x, z] == null) {
+            return ACTION.MOVE;
+        } else {
+            return grid[x, z].GetComponent<LevelObject>().PressedReaction(puppet);
         }
     }
 

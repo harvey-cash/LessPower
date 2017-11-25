@@ -10,4 +10,7 @@ public abstract class LevelObject : MonoBehaviour {
     public abstract ACTION PressedReaction(PlayerController player);
     public abstract ACTION MoveReaction(PlayerController player);
 
+    public abstract ACTION PressedReaction(Puppet puppet);
+    public abstract ACTION MoveReaction(Puppet puppet);
+
 }

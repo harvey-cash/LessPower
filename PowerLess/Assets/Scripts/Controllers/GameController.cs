@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
-    private const int LEVEL_COUNT = 4;
-    private int currentLevel = 0;
+    private const int LEVEL_COUNT = 6;
+    private int currentLevel = 5;
 
     public List<GameObject> objectsInScene;
     public Rigidbody cameraObject;
 
     private PlayerController player;
+    public PlayerController GetPlayer() { return player; }
+
     private LevelController level;
 
     // Use this for initialization
@@ -30,7 +32,7 @@ public class GameController : MonoBehaviour {
      */
     public void LoadLevel() {
         currentLevel++;
-        if (currentLevel < LEVEL_COUNT) {
+        if (currentLevel <= LEVEL_COUNT) {
             string levelName = "Level" + currentLevel;
             Debug.Log("Loading " + levelName);
 

@@ -12,4 +12,13 @@ public class ButtonObject : LevelObject {
     public override ACTION MoveReaction(PlayerController player) {
         return ACTION.MOVE;
     }
+
+    public override ACTION PressedReaction(Puppet puppet) {
+        Debug.Log("Pressed by Puppet!");
+        return pressedReaction;
+    }
+
+    public override ACTION MoveReaction(Puppet puppet) {
+        return ACTION.MOVE;
+    }
 }
