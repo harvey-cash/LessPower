@@ -7,8 +7,12 @@ public class PlayerController : MonoBehaviour {
     private InputController inputController = new InputController();
 
     private bool canMove = true;
-    private float rollSpeed = 250;
+    private float rollDuration = 0.3f;
 
+
+    /*
+     * Called every frame
+     */
     private void Update() {        
         Move();
     }
@@ -32,6 +36,8 @@ public class PlayerController : MonoBehaviour {
      */
     private IEnumerator Roll(Vector3 start, Vector3 direction) {
         canMove = false;
+
+        float rollThrough = 90;
         Quaternion startRotation = transform.rotation;
         
         Vector3 rollPoint = 
@@ -40,16 +46,20 @@ public class PlayerController : MonoBehaviour {
         Vector3 rollAxis = RollAxis(direction);
 
         float completion = 0;
-        while (completion < 90) {
-            float angle = Time.deltaTime * rollSpeed;
+        while (completion < rollThrough) {
+            float angle = Time.deltaTime * (rollThrough / rollDuration);
             transform.RotateAround(rollPoint, rollAxis, angle);
             completion += angle;
             yield return new WaitForEndOfFrame();
         }
 
-        // Reset to uniform alignment. No actual roll happened, guys!        
-        transform.rotation = startRotation;
-        transform.RotateAround(rollPoint, rollAxis, 90);
+        // Snap to correct position and angle
+        GameObject temp = new GameObject("Temp");
+        temp.transform.rotation = startRotation;
+        temp.transform.RotateAround(rollPoint, rollAxis, rollThrough);
+        transform.rotation = temp.transform.rotation;
+        Destroy(temp);
+
         transform.position = start + direction;
         canMove = true;
     }
