@@ -52,6 +52,17 @@ public class LevelGrid {
     }
 
 
+    /* Return the press action of whatever's at these co-ordinates
+     */
+    public ACTION Press(int x, int z, PlayerController player) {
+        if (grid[x, z] == null) {
+            return ACTION.MOVE;
+        } else {
+            return grid[x, z].GetComponent<LevelObject>().PressedReaction(player);
+        }
+    }
+
+
     /* Add the given GameObject to the grid, provided the grid
      * space is free.
      */

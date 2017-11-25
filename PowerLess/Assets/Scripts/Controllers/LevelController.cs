@@ -7,8 +7,13 @@ public class LevelController : MonoBehaviour {
     private LevelGrid levelGrid;
     public GameObject floor;
 
-	// Use this for initialization
-	void Start () {        
+    private GameController gameController;
+    public GameController Game {
+        set { gameController = value; }
+    }
+
+    // Use this for initialization
+    void Start () {        
         levelGrid = new LevelGrid(floor, GetChildren());
 	}
 
@@ -34,5 +39,21 @@ public class LevelController : MonoBehaviour {
         int x = (int)Mathf.Floor(position.x);
         int z = (int)Mathf.Floor(position.z);
         return MoveTo(x, z, player);
+    }
+
+    /* Press the object at the given position,
+     * if it even exists.
+     */
+     public ACTION Press(Vector3 position, PlayerController player) {
+        int x = (int)Mathf.Floor(position.x);
+        int z = (int)Mathf.Floor(position.z);
+
+        // If the press results in defeating the level, progress to next
+        ACTION pressed = levelGrid.Press(x, z, player);
+        if (pressed == ACTION.WIN) {
+            gameController.WinLevel();
+        }
+
+        return pressed; 
     }
 }

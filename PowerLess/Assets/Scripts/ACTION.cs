@@ -1,4 +1,4 @@
 ﻿
 public enum ACTION {
-    NOPE, MOVE
+    NOPE, MOVE, WIN
 }

@@ -227,6 +227,7 @@
     <Compile Include="Assets\Scripts\LevelGrid.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\ButtonObject.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\LevelObject.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\WallButton.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\WallObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

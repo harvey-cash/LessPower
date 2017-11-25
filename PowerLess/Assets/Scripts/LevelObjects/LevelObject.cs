@@ -5,8 +5,9 @@ using UnityEngine;
 public abstract class LevelObject : MonoBehaviour {
 
     [SerializeField]
-    protected ACTION moveReaction;
+    protected ACTION pressedReaction;
 
+    public abstract ACTION PressedReaction(PlayerController player);
     public abstract ACTION MoveReaction(PlayerController player);
-	
+
 }

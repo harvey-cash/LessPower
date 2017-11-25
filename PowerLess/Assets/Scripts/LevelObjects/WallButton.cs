@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonObject : LevelObject {
+public class WallButton : LevelObject {
+    public List<WallObject> walls;
 
     public override ACTION PressedReaction(PlayerController player) {
-        Debug.Log("Pressed!");
+        for (int i = 0; i < walls.Count; i++) {
+            walls[i].ToggleLowered();
+        }
         return pressedReaction;
     }
 

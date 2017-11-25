@@ -6,17 +6,22 @@ public class PlayerController : MonoBehaviour {
 
     private InputController inputController = new InputController();
 
+    private GameController gameController;
+    public GameController Game {
+        set { gameController = value; }
+    }
+
     private Rigidbody cameraObject;
-    public Rigidbody SetCamera {
+    public Rigidbody CameraObject {
         set { cameraObject = value; }
     }
     private Vector3 cameraOffset;
-    public Vector3 SetOffset {
+    public Vector3 CameraOffset {
         set { cameraOffset = value; }
     }
 
     private LevelController levelController;
-    public LevelController SetLevel {
+    public LevelController Level {
         set { levelController = value; }
     }
 
@@ -91,6 +96,9 @@ public class PlayerController : MonoBehaviour {
 
         transform.position = start + direction;
         canMove = true;
+
+        // Press upon landing
+        levelController.Press(transform.position, this);
     }
 
     /*
