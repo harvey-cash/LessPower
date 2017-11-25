@@ -15,7 +15,10 @@ public class WallObject : LevelObject {
     }
 
     private IEnumerator Move(Vector3 direction) {
-        yield return new WaitForEndOfFrame();
+        if (direction.normalized == Vector3.up) {
+            lowered = false;
+        }
+
         float distance = 1;
         Vector3 startPosition = transform.position;
 
@@ -27,7 +30,9 @@ public class WallObject : LevelObject {
             yield return new WaitForEndOfFrame();
         }
 
-        lowered = !lowered;
+        if (direction.normalized == Vector3.down) {
+            lowered = true;
+        }
     }
 
     public override ACTION PressedReaction(PlayerController player) {
