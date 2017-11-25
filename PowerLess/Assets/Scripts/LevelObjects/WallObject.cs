@@ -5,17 +5,25 @@ using UnityEngine;
 public class WallObject : LevelObject {
     private float moveDuration = 0.5f;
 
+    private bool moving = false;
     private bool lowered = false;
     public void ToggleLowered() {
-        if (lowered) {
-            StartCoroutine(Move(Vector3.up));
-        } else {
-            StartCoroutine(Move(Vector3.down));
-        }
+        if (!moving) {
+            if (lowered) {
+                StartCoroutine(Move(Vector3.up));
+            } else {
+                StartCoroutine(Move(Vector3.down));
+            }
+        }        
     }
 
     private IEnumerator Move(Vector3 direction) {
-        yield return new WaitForEndOfFrame();
+        moving = true;
+
+        if (direction.normalized == Vector3.up) {
+            lowered = false;
+        }
+
         float distance = 1;
         Vector3 startPosition = transform.position;
 
@@ -27,7 +35,10 @@ public class WallObject : LevelObject {
             yield return new WaitForEndOfFrame();
         }
 
-        lowered = !lowered;
+        if (direction.normalized == Vector3.down) {
+            lowered = true;
+        }
+        moving = false;
     }
 
     public override ACTION PressedReaction(PlayerController player) {
@@ -35,6 +46,21 @@ public class WallObject : LevelObject {
     }
 
     public override ACTION MoveReaction(PlayerController player) {
+        if (lowered) {
+            return ACTION.MOVE;
+        } else {
+            return ACTION.NOPE;
+        }
+    }
+
+
+    /* Puppets can interact with walls!
+     */
+    public override ACTION PressedReaction(Puppet puppet) {
+        return pressedReaction;
+    }
+
+    public override ACTION MoveReaction(Puppet puppet) {
         if (lowered) {
             return ACTION.MOVE;
         } else {

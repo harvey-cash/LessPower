@@ -224,9 +224,12 @@
     <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
     <Compile Include="Assets\Scripts\Controllers\LevelController.cs" />
     <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\DIRECTION.cs" />
     <Compile Include="Assets\Scripts\LevelGrid.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\ButtonObject.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\LevelObject.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\Puppet.cs" />
+    <Compile Include="Assets\Scripts\LevelObjects\PuppetButton.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\WallButton.cs" />
     <Compile Include="Assets\Scripts\LevelObjects\WallObject.cs" />
   </ItemGroup>

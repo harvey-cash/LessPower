@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour {   
 
     private InputController inputController = new InputController();
 
@@ -45,9 +45,12 @@ public class PlayerController : MonoBehaviour {
 
             // If trying to move...            
             if (direction != Vector3.zero) {
-                
-                ACTION moveReaction = levelController.MoveTo(transform.position + direction, this);
-                if(moveReaction != ACTION.NOPE) {
+                Vector3 endPosition = transform.position + direction;
+
+                ACTION moveReaction = levelController.MoveTo(endPosition, this);
+                bool puppetCollision = levelController.PuppetCollision(endPosition);
+
+                if (moveReaction != ACTION.NOPE && !puppetCollision) {
                     StartCoroutine(Roll(transform.position, direction));
                 }                
             }            
