@@ -6,6 +6,11 @@ public class PlayerController : MonoBehaviour {
 
     private InputController inputController = new InputController();
 
+    private LevelController levelController;
+    public LevelController SetLevel {
+        set { levelController = value; }
+    }
+
     private bool canMove = true;
     private float rollDuration = 0.3f;
 
@@ -24,7 +29,8 @@ public class PlayerController : MonoBehaviour {
         if (canMove) {
             Vector3 direction = inputController.GetInput();
 
-            if (direction != Vector3.zero) {
+            // If trying to move, but not into an object on the grid...
+            if (direction != Vector3.zero && levelController.CanMoveTo(transform.position + direction)) {
                 StartCoroutine(Roll(transform.position, direction));
             }            
         }
