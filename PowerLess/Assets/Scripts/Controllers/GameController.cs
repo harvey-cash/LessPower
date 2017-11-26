@@ -66,6 +66,7 @@ public class GameController : MonoBehaviour {
 
             player.Level = level;
             player.transform.position = level.StartPosition();
+            player.SetTargetPos(level.BoardCenter());
         }
         else {
             Debug.Log("Win!");

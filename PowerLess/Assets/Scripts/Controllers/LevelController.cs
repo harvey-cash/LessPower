@@ -13,6 +13,7 @@ public class LevelController : MonoBehaviour {
 
     private LevelGrid levelGrid;
     private Puppet[] puppetList;
+    public Puppet[] GetPuppets() { return puppetList; }
 
     public GameObject floor;
 
@@ -26,6 +27,10 @@ public class LevelController : MonoBehaviour {
         levelGrid = new LevelGrid(floor, GetChildren());
         puppetList = InitialisePuppets();        
 	}
+
+    public Vector3 BoardCenter() {
+        return floor.transform.position;
+    }
 
 
     /* Initialise all Puppets in the level

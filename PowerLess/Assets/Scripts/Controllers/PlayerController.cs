@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
         set { gameController = value; }
     }
 
+    private Vector3 startPosition = Vector3.zero;
+    public void SetTargetPos(Vector3 position) { startPosition = position; }
+
     private Rigidbody cameraObject;
     public Rigidbody CameraObject {
         set { cameraObject = value; }
@@ -19,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     public Vector3 CameraOffset {
         set { cameraOffset = value; }
     }
+    private Rigidbody targetObject;
 
     private LevelController levelController;
     public LevelController Level {
@@ -33,6 +37,7 @@ public class PlayerController : MonoBehaviour {
      */
     private void Update() {        
         Move();
+        ControlTarget();
         ControlCamera();
     }
 
@@ -69,9 +74,25 @@ public class PlayerController : MonoBehaviour {
     /* Add forces to the camera in order
      * to move it around. Duh.
      */
+    private void Start() {
+        targetObject = new GameObject("Camera Target").AddComponent<Rigidbody>();
+        targetObject.transform.position = transform.position;
+        targetObject.mass = 0.1f;
+        targetObject.drag = 10;
+    }
+
+    private void ControlTarget() {
+        if (targetObject != null) {            
+            targetObject.AddForce(((transform.position + startPosition) * 0.5f) 
+                - targetObject.transform.position);
+        }        
+    }
+
     private void ControlCamera() {
         if(cameraOffset != null) {
-            cameraObject.AddForce((transform.position - cameraOffset) - cameraObject.transform.position);
+            cameraObject.AddForce((targetObject.transform.position - cameraOffset) 
+                - cameraObject.transform.position);
+            cameraObject.transform.LookAt(targetObject.transform);
         }        
     }
 

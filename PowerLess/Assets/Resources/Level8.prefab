@@ -4980,8 +4980,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pressedReaction: 1
-  puppets: []
-  direction: 0
+  puppets:
+  - {fileID: 114952112081342030}
+  direction: 2
 --- !u!114 &114479783208809264
 MonoBehaviour:
   m_ObjectHideFlags: 1
