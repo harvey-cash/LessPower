@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public abstract class LevelObject : MonoBehaviour {
 
     [SerializeField]
@@ -15,5 +16,8 @@ public abstract class LevelObject : MonoBehaviour {
 
     public abstract ACTION PressedReaction(Puppet puppet);
     public abstract ACTION MoveReaction(Puppet puppet);
+
+    protected abstract IEnumerator MoveNoise();
+    protected abstract IEnumerator PressNoise();
 
 }

@@ -16,6 +16,7 @@ public class WallObject : LevelObject {
             } else {
                 StartCoroutine(Move(Vector3.down));
             }
+            StartCoroutine(PressNoise());
         }        
     }
 
@@ -63,10 +64,24 @@ public class WallObject : LevelObject {
     }
 
     public override ACTION MoveReaction(Puppet puppet) {
-        if (lowered) {
+        if (lowered) {            
             return ACTION.MOVE;
         } else {
+            StartCoroutine(MoveNoise());
             return ACTION.NOPE;
         }
+    }
+
+
+    protected override IEnumerator MoveNoise() {
+        AudioClip clip = Resources.Load("Effects/Pu 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
+    }
+
+    protected override IEnumerator PressNoise() {
+        AudioClip clip = Resources.Load("Effects/Shooo 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
     }
 }

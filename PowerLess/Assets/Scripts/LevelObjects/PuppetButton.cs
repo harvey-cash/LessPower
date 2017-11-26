@@ -17,10 +17,12 @@ public class PuppetButton : LevelObject {
         for (int i = 0; i < puppets.Count; i++) {           
             puppets[i].Move(VectorDirection());
         }
+        StartCoroutine(PressNoise());
         return pressedReaction;
     }
 
     public override ACTION MoveReaction(PlayerController player) {
+        StartCoroutine(MoveNoise());
         return ACTION.MOVE;
     }
 
@@ -32,5 +34,18 @@ public class PuppetButton : LevelObject {
     }
     public override ACTION MoveReaction(Puppet puppet) {
         return ACTION.NOPE;
+    }
+
+
+    protected override IEnumerator MoveNoise() {
+        AudioClip clip = Resources.Load("Effects/Tss 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
+    }
+
+    protected override IEnumerator PressNoise() {
+        AudioClip clip = Resources.Load("Effects/Bff 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
     }
 }

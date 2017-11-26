@@ -9,10 +9,12 @@ public class WallButton : LevelObject {
         for (int i = 0; i < walls.Count; i++) {
             walls[i].ToggleLowered();
         }
+        StartCoroutine(PressNoise());
         return pressedReaction;
     }
 
     public override ACTION MoveReaction(PlayerController player) {
+        StartCoroutine(MoveNoise());
         return ACTION.MOVE;
     }
 
@@ -23,10 +25,25 @@ public class WallButton : LevelObject {
         for (int i = 0; i < walls.Count; i++) {
             walls[i].ToggleLowered();
         }
+        StartCoroutine(PressNoise());
         return pressedReaction;
     }
 
     public override ACTION MoveReaction(Puppet puppet) {
+        StartCoroutine(MoveNoise());
         return ACTION.MOVE;
+    }
+
+
+    protected override IEnumerator MoveNoise() {
+        AudioClip clip = Resources.Load("Effects/Tss 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
+    }
+
+    protected override IEnumerator PressNoise() {
+        AudioClip clip = Resources.Load("Effects/Huu 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
     }
 }

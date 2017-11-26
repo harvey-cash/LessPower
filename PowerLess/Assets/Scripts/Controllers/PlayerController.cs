@@ -52,10 +52,19 @@ public class PlayerController : MonoBehaviour {
 
                 if (moveReaction != ACTION.NOPE && !puppetCollision) {
                     StartCoroutine(Roll(transform.position, direction));
+                    StartCoroutine(MoveNoise());
                 }                
             }            
         }
     }
+
+
+    private IEnumerator MoveNoise() {
+        AudioClip clip = Resources.Load("Effects/Pu 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
+    }
+
 
     /* Add forces to the camera in order
      * to move it around. Duh.

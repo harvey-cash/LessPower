@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameController : MonoBehaviour {
     private const int LEVEL_COUNT = 10;
-    private int currentLevel = 7;
+    private int currentLevel = 0;
 
     public List<GameObject> objectsInScene;
     public Rigidbody cameraObject;
@@ -26,6 +27,17 @@ public class GameController : MonoBehaviour {
         player.CameraOffset = player.transform.position - cameraObject.transform.position;
 
         LoadLevel();
+
+        StartCoroutine(PlayMusic());
+    }
+
+
+    private IEnumerator PlayMusic() {
+        while(true) {
+            AudioClip clip = Resources.Load("Music/Osmosis") as AudioClip;
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+            yield return new WaitForSeconds(89);
+        }        
     }
 
     private void Update() {

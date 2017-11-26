@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Puppet : MonoBehaviour {
 
     private bool canMove = true;
@@ -16,6 +17,12 @@ public class Puppet : MonoBehaviour {
 
     private void Start() {
         startPosition = transform.position;
+    }
+
+    protected IEnumerator MoveNoise() {
+        AudioClip clip = Resources.Load("Effects/Clop 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
     }
 
     /*
@@ -34,6 +41,7 @@ public class Puppet : MonoBehaviour {
 
                 if (moveReaction != ACTION.NOPE && !collisions) {
                     StartCoroutine(Roll(transform.position, direction));
+                    StartCoroutine(MoveNoise());
                 }
             }
         }
