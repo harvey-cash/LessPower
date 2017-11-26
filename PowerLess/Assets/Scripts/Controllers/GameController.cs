@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class GameController : MonoBehaviour {
-    private const int LEVEL_COUNT = 10;
-    private int currentLevel = 7;
+    private const int LEVEL_COUNT = 9;
+    private int currentLevel = 4;
 
     public List<GameObject> objectsInScene;
     public Rigidbody cameraObject;
@@ -25,7 +26,19 @@ public class GameController : MonoBehaviour {
         player.CameraObject = cameraObject;
         player.CameraOffset = player.transform.position - cameraObject.transform.position;
 
+        currentLevel--;
         LoadLevel();
+
+        StartCoroutine(PlayMusic());
+    }
+
+
+    private IEnumerator PlayMusic() {
+        while(true) {
+            AudioClip clip = Resources.Load("Music/Osmosis") as AudioClip;
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+            yield return new WaitForSeconds(89);
+        }        
     }
 
     private void Update() {
@@ -47,16 +60,38 @@ public class GameController : MonoBehaviour {
 
             if (level != null) { Destroy(level.gameObject); }
             level = (Instantiate(Resources.Load(levelName)) as GameObject).GetComponent<LevelController>();
-
-            RenderSettings.skybox = Instantiate(Resources.Load("Materials/Backgrounds/" + levelName)) as Material;
-            DynamicGI.UpdateEnvironment();
             level.Game = this;
-
             player.Level = level;
             player.transform.position = level.StartPosition();
+            player.SetTargetPos(level.BoardCenter());
+
+            player.Initialise();
+
+            RenderSettings.skybox = Instantiate(Resources.Load("Materials/Backgrounds/" + levelName)) as Material;
+            if (level.BeDark()) {
+                RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+                RenderSettings.ambientLight = Color.black;
+                player.Illuminate();
+            } else {
+                RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
+                DynamicGI.UpdateEnvironment();
+                player.Delluminate();
+            }
         }
         else {
             Debug.Log("Win!");
+            currentLevel = 1;
+
+            RenderSettings.skybox = Instantiate(Resources.Load("Materials/Backgrounds/Level1")) as Material;
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Skybox;
+            DynamicGI.UpdateEnvironment();
+            player.Delluminate();
+
+            Transform[] allObjects = level.gameObject.GetComponentsInChildren<Transform>();
+            for (int i = 0; i < allObjects.Length; i++) {
+                allObjects[i].gameObject.AddComponent<Rigidbody>().useGravity = true;
+                Physics.gravity = Vector3.up * 6;
+            }
         }
              
     }

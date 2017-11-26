@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour {
         set { gameController = value; }
     }
 
+    private Vector3 centerOfFloor = Vector3.zero;
+    public void SetTargetPos(Vector3 position) { centerOfFloor = position; }
+
     private Rigidbody cameraObject;
     public Rigidbody CameraObject {
         set { cameraObject = value; }
@@ -19,6 +22,8 @@ public class PlayerController : MonoBehaviour {
     public Vector3 CameraOffset {
         set { cameraOffset = value; }
     }
+    private Rigidbody targetObject;
+    private Rigidbody lightObject;
 
     private LevelController levelController;
     public LevelController Level {
@@ -33,6 +38,7 @@ public class PlayerController : MonoBehaviour {
      */
     private void Update() {        
         Move();
+        ControlTargetAndLight();
         ControlCamera();
     }
 
@@ -52,17 +58,60 @@ public class PlayerController : MonoBehaviour {
 
                 if (moveReaction != ACTION.NOPE && !puppetCollision) {
                     StartCoroutine(Roll(transform.position, direction));
+                    StartCoroutine(MoveNoise());
                 }                
             }            
         }
     }
 
+
+    private IEnumerator MoveNoise() {
+        AudioClip clip = Resources.Load("Effects/Pu 0" + Random.Range(1, 4)) as AudioClip;
+        AudioSource.PlayClipAtPoint(clip, transform.position);
+        yield return new WaitForEndOfFrame();
+    }
+
+
     /* Add forces to the camera in order
      * to move it around. Duh.
      */
+    public void Initialise() {
+        targetObject = new GameObject("Camera Target").AddComponent<Rigidbody>();
+        targetObject.useGravity = false;
+        targetObject.transform.position = transform.position;
+        targetObject.mass = 0.1f;
+        targetObject.drag = 10;
+
+        lightObject = new GameObject("Light Target").AddComponent<Rigidbody>();
+        lightObject.useGravity = false;
+        Light illum = lightObject.gameObject.AddComponent<Light>();
+        illum.type = LightType.Point;
+        lightObject.mass = 0.1f;
+        lightObject.drag = 10;
+    }
+
+    private void ControlTargetAndLight() {
+        if (targetObject != null) {            
+            targetObject.AddForce(((transform.position + centerOfFloor) * 0.5f) 
+                - targetObject.transform.position);
+        }
+        if (lightObject != null) {
+            lightObject.AddForce(transform.position + Vector3.up - lightObject.transform.position);
+        }
+    }
+    
+    public void Illuminate() {
+        lightObject.GetComponent<Light>().intensity = 0.5f;
+    }
+    public void Delluminate() {
+        lightObject.GetComponent<Light>().intensity = 0;
+    }
+
     private void ControlCamera() {
         if(cameraOffset != null) {
-            cameraObject.AddForce((transform.position - cameraOffset) - cameraObject.transform.position);
+            cameraObject.AddForce((targetObject.transform.position - cameraOffset) 
+                - cameraObject.transform.position);
+            cameraObject.transform.LookAt(targetObject.transform);
         }        
     }
 
