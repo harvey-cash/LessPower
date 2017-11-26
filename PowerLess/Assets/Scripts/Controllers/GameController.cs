@@ -4,8 +4,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(AudioSource))]
 public class GameController : MonoBehaviour {
+
     private const int LEVEL_COUNT = 9;
-    private int currentLevel = 4;
+    private int currentLevel = 1;
 
     public List<GameObject> objectsInScene;
     public Rigidbody cameraObject;
@@ -35,8 +36,8 @@ public class GameController : MonoBehaviour {
 
     private IEnumerator PlayMusic() {
         while(true) {
-            AudioClip clip = Resources.Load("Music/Osmosis") as AudioClip;
-            AudioSource.PlayClipAtPoint(clip, transform.position);
+            AudioClip clip = Resources.Load("Music/OsmosisLoud") as AudioClip;
+            AudioSource.PlayClipAtPoint(clip, transform.position, 0.2f);
             yield return new WaitForSeconds(89);
         }        
     }
