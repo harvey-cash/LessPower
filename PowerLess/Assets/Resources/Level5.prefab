@@ -1479,7 +1479,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60b4423eca049964cb0044493265f980, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pressedReaction: 0
 --- !u!114 &114877672351241934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1503,7 +1502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 245fc4aa98b68c349ae45d7c3baffa5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pressedReaction: 0
+  pressedReaction: 2
 --- !u!114 &114990419059472814
 MonoBehaviour:
   m_ObjectHideFlags: 1

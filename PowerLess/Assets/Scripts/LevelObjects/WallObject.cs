@@ -8,7 +8,9 @@ public class WallObject : LevelObject {
     private bool moving = false;
     private bool lowered = false;
     public void ToggleLowered() {
-        if (!moving) {
+        bool collision = (levelController.PuppetCollision(transform.position) 
+            || levelController.PlayerCollision(transform.position));
+        if (!moving && !collision) {
             if (lowered) {
                 StartCoroutine(Move(Vector3.up));
             } else {

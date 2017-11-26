@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
-    private const int LEVEL_COUNT = 6;
-    private int currentLevel = 5;
+    private const int LEVEL_COUNT = 10;
+    private int currentLevel = 7;
 
     public List<GameObject> objectsInScene;
     public Rigidbody cameraObject;
@@ -26,6 +26,15 @@ public class GameController : MonoBehaviour {
         player.CameraOffset = player.transform.position - cameraObject.transform.position;
 
         LoadLevel();
+    }
+
+    private void Update() {
+
+        //RELOAD
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            currentLevel--;
+            LoadLevel();
+        }
     }
 
     /* Load the next level
