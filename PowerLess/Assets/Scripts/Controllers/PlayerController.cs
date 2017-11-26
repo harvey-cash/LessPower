@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour {
         set { gameController = value; }
     }
 
-    private Vector3 startPosition = Vector3.zero;
-    public void SetTargetPos(Vector3 position) { startPosition = position; }
+    private Vector3 centerOfFloor = Vector3.zero;
+    public void SetTargetPos(Vector3 position) { centerOfFloor = position; }
 
     private Rigidbody cameraObject;
     public Rigidbody CameraObject {
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
         set { cameraOffset = value; }
     }
     private Rigidbody targetObject;
+    private Rigidbody lightObject;
 
     private LevelController levelController;
     public LevelController Level {
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour {
      */
     private void Update() {        
         Move();
-        ControlTarget();
+        ControlTargetAndLight();
         ControlCamera();
     }
 
@@ -74,18 +75,36 @@ public class PlayerController : MonoBehaviour {
     /* Add forces to the camera in order
      * to move it around. Duh.
      */
-    private void Start() {
+    public void Initialise() {
         targetObject = new GameObject("Camera Target").AddComponent<Rigidbody>();
+        targetObject.useGravity = false;
         targetObject.transform.position = transform.position;
         targetObject.mass = 0.1f;
         targetObject.drag = 10;
+
+        lightObject = new GameObject("Light Target").AddComponent<Rigidbody>();
+        lightObject.useGravity = false;
+        Light illum = lightObject.gameObject.AddComponent<Light>();
+        illum.type = LightType.Point;
+        lightObject.mass = 0.1f;
+        lightObject.drag = 10;
     }
 
-    private void ControlTarget() {
+    private void ControlTargetAndLight() {
         if (targetObject != null) {            
-            targetObject.AddForce(((transform.position + startPosition) * 0.5f) 
+            targetObject.AddForce(((transform.position + centerOfFloor) * 0.5f) 
                 - targetObject.transform.position);
-        }        
+        }
+        if (lightObject != null) {
+            lightObject.AddForce(transform.position + Vector3.up - lightObject.transform.position);
+        }
+    }
+    
+    public void Illuminate() {
+        lightObject.GetComponent<Light>().intensity = 0.5f;
+    }
+    public void Delluminate() {
+        lightObject.GetComponent<Light>().intensity = 0;
     }
 
     private void ControlCamera() {

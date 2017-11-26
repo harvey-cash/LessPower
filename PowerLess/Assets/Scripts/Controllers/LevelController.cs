@@ -15,7 +15,11 @@ public class LevelController : MonoBehaviour {
     private Puppet[] puppetList;
     public Puppet[] GetPuppets() { return puppetList; }
 
-    public GameObject floor;
+    public GameObject floor, directLight;
+    public bool BeDark() {
+        if (directLight.GetComponent<Light>().intensity <= 0) { return true; }
+        else { return false; }
+    }
 
     private GameController gameController;
     public GameController Game {

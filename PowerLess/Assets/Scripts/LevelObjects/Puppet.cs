@@ -37,7 +37,7 @@ public class Puppet : MonoBehaviour {
 
                 ACTION moveReaction = levelController.MoveTo(endPosition, this);
                 bool collisions = levelController.PlayerCollision(endPosition) 
-                    && levelController.PuppetCollision(endPosition);
+                    || levelController.PuppetCollision(endPosition);
 
                 if (moveReaction != ACTION.NOPE && !collisions) {
                     StartCoroutine(Roll(transform.position, direction));

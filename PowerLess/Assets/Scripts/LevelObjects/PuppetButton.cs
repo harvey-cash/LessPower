@@ -26,14 +26,18 @@ public class PuppetButton : LevelObject {
         return ACTION.MOVE;
     }
 
-    /* PUPPETS CAN'T INTERACT WITH PUPPET CONTROLLERS (for now)
+    /* PUPPETS CAN INTERACT WITH PUPPET CONTROLLERS (for now)
      * Could see that leading to some terrible, albeit interesting effects...
      */
     public override ACTION PressedReaction(Puppet puppet) {
-        return ACTION.NOPE;
+        for (int i = 0; i < puppets.Count; i++) {
+            puppets[i].Move(VectorDirection());
+        }
+        StartCoroutine(PressNoise());
+        return pressedReaction;
     }
     public override ACTION MoveReaction(Puppet puppet) {
-        return ACTION.NOPE;
+        return ACTION.MOVE;
     }
 
 
