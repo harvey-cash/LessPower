@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLess", "PowerLess.csproj", "{FDAE51E2-AFD1-F29A-C801-25B829B5E6E4}"
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PowerLess.CSharp", "PowerLess.CSharp.csproj", "{58F362F3-6D37-F55A-CD89-DA1D2E183E6E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FDAE51E2-AFD1-F29A-C801-25B829B5E6E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FDAE51E2-AFD1-F29A-C801-25B829B5E6E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FDAE51E2-AFD1-F29A-C801-25B829B5E6E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FDAE51E2-AFD1-F29A-C801-25B829B5E6E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58F362F3-6D37-F55A-CD89-DA1D2E183E6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F362F3-6D37-F55A-CD89-DA1D2E183E6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F362F3-6D37-F55A-CD89-DA1D2E183E6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F362F3-6D37-F55A-CD89-DA1D2E183E6E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -37,6 +37,7 @@ public class WallObject : LevelObject {
             completion += movement;
             yield return new WaitForEndOfFrame();
         }
+        transform.position = startPosition + direction; //SNAP TO!
 
         if (direction.normalized == Vector3.down) {
             lowered = true;

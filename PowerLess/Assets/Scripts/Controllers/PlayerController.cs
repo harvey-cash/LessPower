@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour {
     }
     
     public void Illuminate() {
-        lightObject.GetComponent<Light>().intensity = 0.5f;
+        lightObject.GetComponent<Light>().intensity = 0.25f;
     }
     public void Delluminate() {
         lightObject.GetComponent<Light>().intensity = 0;
